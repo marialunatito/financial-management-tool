@@ -27,3 +27,5 @@ The technical goal is to implement Hexagonal Architecture and various design pat
 - error management
 - log management
 - API security management (JWT authentication)
+- integration test
+- unit test
