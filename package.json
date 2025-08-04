@@ -1,0 +1,26 @@
+{
+  "name": "financial-management-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/convict": "^6.1.6",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "convict": "^6.2.4",
+    "express": "^5.1.0",
+    "knex": "^3.1.0",
+    "pg": "^8.16.3",
+    "uuid": "^11.1.0"
+  }
+}
