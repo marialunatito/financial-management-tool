@@ -1,6 +1,6 @@
-import { Wallet } from "src/domain/entities/wallet";
 import { v4 } from "uuid";
 import { IMovement, MovementEnum } from "../domain/entities/movement";
+import { Wallet } from "../domain/entities/wallet";
 import { ICategoryRepository } from "./ports/categoryRepository";
 import { IMovementRepository } from "./ports/movementRepository";
 import { IWalletRepository } from "./ports/walletRepository";

@@ -1,7 +1,7 @@
 import type { Knex } from "knex";
-import { ICategoryRepository } from "src/application/ports/categoryRepository";
-import { ICategory } from "src/domain/entities/category";
 import { v4 } from "uuid";
+import { ICategoryRepository } from "../../application/ports/categoryRepository";
+import { ICategory } from "../../domain/entities/category";
 import { Database } from "../database/db";
 
 export class CategoryRepositoryPostgres implements ICategoryRepository {
@@ -15,7 +15,7 @@ export class CategoryRepositoryPostgres implements ICategoryRepository {
     const category = {
       id: v4(),
       name,
-      description: "",
+      description: "lorem ipsum", // TODO improving this
       createdAt: now,
       updatedAt: now,
       deletedAt: null,
