@@ -25,13 +25,13 @@ export class UserRepositoryPostgres implements IUserRepository {
       country_id: user.countryId,
     };
 
-    await this.trx<User>("userstest").insert(userToDB);
+    await this.trx<User>("users").insert(userToDB);
     return user;
   }
 
   // TODO: pending implement
   findByEmail(email: string): Promise<User | undefined> {
-    return this.trx<User>("userstest").where("email", email).first();
+    return this.trx<User>("users").where("email", email).first();
   }
   update(user: User): Promise<User> {
     console.log(user);
