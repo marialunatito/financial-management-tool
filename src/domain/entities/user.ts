@@ -1,3 +1,5 @@
+import { ICountry } from "./country";
+
 export interface IUser {
   readonly id: string;
   firstName: string;
@@ -16,7 +18,7 @@ export class User implements IUser {
   lastName: string;
   email: string;
   birthdate: Date;
-  countryId: string;
+  countryId: ICountry["id"];
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
