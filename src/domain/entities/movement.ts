@@ -10,6 +10,7 @@ export interface IMovement {
   id: string;
   categoryId: ICategory["id"];
   walletId: IWallet["id"];
+  amount: number;
   type: MovementEnum;
   description: string;
   createdAt: Date;
@@ -21,6 +22,7 @@ export class Movement implements IMovement {
   id: string;
   categoryId: ICategory["id"];
   walletId: IWallet["id"];
+  amount: number;
   type: MovementEnum;
   description: string;
   createdAt: Date;
@@ -31,6 +33,7 @@ export class Movement implements IMovement {
     this.id = movement.id;
     this.categoryId = movement.categoryId;
     this.walletId = movement.walletId;
+    this.amount = movement.amount;
     this.type = movement.type;
     this.description = movement.description;
     this.createdAt = movement.createdAt;
