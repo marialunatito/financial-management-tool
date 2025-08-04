@@ -29,8 +29,6 @@ export class CreateUser {
       ...input,
     });
 
-    console.log("entro aca!!");
-
     await this.userRepository.create(user);
     return user;
   }
