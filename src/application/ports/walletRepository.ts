@@ -4,5 +4,5 @@ import type { IWallet } from "../../domain/entities/wallet";
 export interface IWalletRepository {
   create(wallet: IWallet): Promise<IWallet>;
   findByUserId(userId: IUser["id"]): Promise<IWallet | undefined>;
-  updateById(wallet: IWallet): Promise<IWallet>;
+  updateById(wallet: IWallet): Promise<void>;
 }
