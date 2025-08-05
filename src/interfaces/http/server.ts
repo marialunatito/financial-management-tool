@@ -1,4 +1,5 @@
 import express from "express";
+import movementRoutes from "./routes/movementRoutes";
 import userRoutes from "./routes/userRoutes";
 
 export async function startServer() {
@@ -7,6 +8,7 @@ export async function startServer() {
 
   // routes here 👇🏻
   app.use("/api", userRoutes);
+  app.use("/api", movementRoutes);
 
   const PORT = process.env.PORT || 3000;
 
