@@ -11,7 +11,19 @@ export class MovementRepositoryPostgres implements IMovementRepository {
   }
 
   async create(movement: IMovement): Promise<IMovement> {
-    await this.trx<IMovement>("movements").insert(movement);
+    // TODO: mapperTODB
+    const input = {
+      id: movement.id,
+      category_id: movement.categoryId,
+      wallet_id: movement.walletId,
+      amount: movement.amount,
+      type: movement.type,
+      description: movement.description,
+      created_at: movement.createdAt,
+      updated_at: movement.updatedAt,
+      deleted_at: movement.deletedAt,
+    };
+    await this.trx<IMovement>("movements").insert(input);
     return movement;
   }
 }

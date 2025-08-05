@@ -16,15 +16,37 @@ export class CategoryRepositoryPostgres implements ICategoryRepository {
       id: v4(),
       name,
       description: "lorem ipsum", // TODO improving this
+      created_at: now,
+      updated_at: now,
+      deleted_at: null,
+    };
+    await this.trx<ICategory>("categories").insert(category);
+
+    return {
+      id: v4(),
+      name,
+      description: "lorem ipsum", // TODO improving this
       createdAt: now,
       updatedAt: now,
       deletedAt: null,
     };
-    await this.trx<ICategory>("categories").insert(category);
-
-    return category;
   }
-  findByName(name: ICategory["name"]): Promise<ICategory | undefined> {
-    return this.trx<ICategory>("categories").where(name).first();
+  async findByName(name: ICategory["name"]): Promise<ICategory | undefined> {
+    const result = await this.trx<ICategory>("categories")
+      .where("name", name)
+      .first();
+
+    if (!result) {
+      return;
+    }
+
+    return {
+      id: result.id,
+      name: result.name,
+      description: result.description,
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+      deletedAt: result.deletedAt,
+    };
   }
 }

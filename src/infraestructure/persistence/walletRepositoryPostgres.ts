@@ -11,13 +11,47 @@ export class WalletRepositoryPostgres implements IWalletRepository {
     this.trx = trx ?? Database.instance();
   }
 
-  create(wallet: IWallet): Promise<IWallet> {
-    return this.trx<IWallet>("Wallets").insert(wallet);
+  async create(wallet: IWallet): Promise<IWallet> {
+    // TODO: mapper to db
+    const input = {
+      id: wallet.id,
+      user_id: wallet.userId,
+      total: wallet.total,
+      status: wallet.status,
+      monthly_recurrence: wallet.monthlyRecurrence,
+      created_at: wallet.createdAt,
+      updated_at: wallet.updatedAt,
+      deleted_at: wallet.deletedAt,
+    };
+    await this.trx<IWallet>("wallets").insert(input);
+    return wallet;
   }
-  findByUserId(userId: IUser["id"]): Promise<IWallet | undefined> {
-    return this.trx<IWallet>("Wallets").where("user_id", userId).first();
+  async findByUserId(userId: IUser["id"]): Promise<IWallet | undefined> {
+    const result = await this.trx("wallets").where("user_id", userId).first();
+
+    if (!result) {
+      return;
+    }
+
+    // Mapper to Interrface
+    return {
+      id: result.id,
+      userId: result.user_id,
+      total: parseFloat(result.total),
+      status: result.status,
+      monthlyRecurrence: parseInt(result.monthly_recurrence),
+      createdAt: result.created_at,
+      updatedAt: result.updated_at,
+      deletedAt: result.deleted_at,
+    };
   }
-  updateById(wallet: IWallet): Promise<IWallet> {
-    return this.trx<IWallet>("Wallets").update(wallet);
+  async updateById({
+    id,
+    total,
+  }: {
+    id: IWallet["id"];
+    total: IWallet["total"];
+  }): Promise<void> {
+    await this.trx<IWallet>("wallets").update("total", total).where("id", id);
   }
 }
