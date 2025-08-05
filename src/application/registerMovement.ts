@@ -34,14 +34,13 @@ export class RegisterMovement {
 
     const walletModel = new Wallet(wallet);
     const strategyMap = {
-      [MovementEnum.debit]: walletModel.debit(input.amount),
-      [MovementEnum.credit]: walletModel.credit(input.amount),
+      [MovementEnum.debit]: () => walletModel.debit(input.amount),
+      [MovementEnum.credit]: () => walletModel.credit(input.amount),
     };
 
-    strategyMap[input.type];
+    strategyMap[input.type]();
 
     const now = new Date();
-
     this.walletRepository.updateById({
       ...wallet,
       updatedAt: now,
@@ -50,14 +49,14 @@ export class RegisterMovement {
 
     this.movementRepository.create({
       id: v4(),
-      categoryId: category.name,
+      categoryId: category.id,
       walletId: wallet.id,
       amount: input.amount,
       type: input.type,
       description: input.description,
       createdAt: now,
-      deletedAt: null,
       updatedAt: now,
+      deletedAt: null,
     });
   }
 }
