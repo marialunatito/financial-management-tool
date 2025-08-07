@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 import { Database } from "./infraestructure/database/db";
 import { startServer } from "./interfaces/http/server";
 
