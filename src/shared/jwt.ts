@@ -38,5 +38,6 @@ export async function verifyJWT<T extends JWTPayload>(
   token: string
 ) {
   const { payload } = await jwtVerify<T>(token, getJwtSecretKey(secret));
+  console.log("payload: ", payload);
   return payload;
 }
