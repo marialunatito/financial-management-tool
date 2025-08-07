@@ -2,7 +2,8 @@ import type { Knex } from "knex";
 import { Database } from "../database/db";
 
 import { IUserRepository } from "../../application/ports/userRepository";
-import { User } from "../../domain/entities/user";
+import { IUser, User } from "../../domain/entities/user";
+import { generateTokenPair } from "../auth";
 
 export class UserRepositoryPostgres implements IUserRepository {
   trx: Knex | Knex.Transaction;
@@ -27,6 +28,19 @@ export class UserRepositoryPostgres implements IUserRepository {
 
     await this.trx<User>("users").insert(userToDB);
     return user;
+  }
+
+  async login(
+    user: IUser
+  ): Promise<{ accessToken: string; refreshToken: string }> {
+    const tokenPair = await generateTokenPair({
+      user: {
+        id: user.id,
+        email: user.email,
+      },
+    });
+
+    return tokenPair;
   }
 
   // TODO: pending implement

@@ -5,4 +5,5 @@ export interface IUserRepository {
   findByEmail(email: string): Promise<IUser | undefined>;
   update(user: IUser): Promise<IUser>;
   delete(id: string): Promise<void>;
+  login(user: IUser): Promise<{ accessToken: string; refreshToken: string }>;
 }
