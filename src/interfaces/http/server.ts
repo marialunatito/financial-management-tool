@@ -1,4 +1,6 @@
 import express from "express";
+import { authenticateToken } from "./middleware/auth";
+import loginRoutes from "./routes/loginRoutes";
 import movementRoutes from "./routes/movementRoutes";
 import userRoutes from "./routes/userRoutes";
 
@@ -7,8 +9,10 @@ export async function startServer() {
   app.use(express.json());
 
   // routes here 👇🏻
-  app.use("/api", userRoutes);
-  app.use("/api", movementRoutes);
+
+  app.use("/auth", loginRoutes);
+  app.use("/api", authenticateToken, userRoutes);
+  app.use("/api", authenticateToken, movementRoutes);
 
   const PORT = process.env.PORT || 3000;
 
